@@ -20,7 +20,7 @@ export default function About() {
           <div className="about-right">
             <div className="about-bio reveal-text">
               <p>I study CS at <strong>APSIT, Mumbai</strong> and lead <strong>GDG On Campus APSIT</strong> where I run hackathons, workshops and study jams for the campus community.</p>
-              <p>Right now I'm deep into AI and developer tooling. I built <strong>OrbitGrasp</strong> (repo health scores in your browser), <strong>SmartRouter</strong> (picks the right AI model for any task), and keep shipping more. I learn by building, not by waiting.</p>
+              <p>Right now I'm deep into AI and developer tooling. I built <strong>Playlistify AI</strong> (mood-based Spotify playlists in any language), <strong>SmartRouter</strong> (picks the right AI model for any task), and keep shipping more. I learn by building, not by waiting.</p>
               <p>Outside code: you'll find me at hackathons, contributing to open source, or on Google Cloud doing labs at 2am.</p>
             </div>
             
@@ -43,7 +43,12 @@ export default function About() {
 
         <div className="about-image-section reveal-text">
           <div className="about-image-wrapper">
-            <img src="assets/Monochrome Simple Memories Photo Collage.png" alt="Avanish Kasar" className="about-img" loading="lazy" />
+            <img
+              src="/assets/avatar.png"
+              alt="Avanish Kasar"
+              className="about-img"
+              loading="lazy"
+            />
             <div className="about-image-caption">
               <span>AVANISH KASAR</span>
               <span>MUMBAI, IN</span>

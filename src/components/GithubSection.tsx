@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import GithubCalendar from './ui/retro-space-shooter-git-hub-calendar';
 
-// SVGs are served directly from the profile repo
-// contrib-heatmap.svg is rebuilt daily via GitHub Actions
-const PROFILE_REPO_RAW = 'https://raw.githubusercontent.com/avanishkasar/avanishkasar/main';
+// Using jsDelivr CDN — properly serves SVG SMIL animations (raw GitHub strips them)
+// Heatmap rebuilt daily by GitHub Actions in avanishkasar/avanishkasar repo
+const PROFILE_REPO_RAW = 'https://cdn.jsdelivr.net/gh/avanishkasar/avanishkasar@main';
+// Daily cache-bust key so portfolio always shows the freshest heatmap
+const TODAY = new Date().toISOString().split('T')[0];
 
 export default function GithubSection() {
   const [tab, setTab] = useState<'calendar' | 'terminal'>('terminal');
@@ -144,7 +146,7 @@ export default function GithubSection() {
 
               <div style={{ overflowX: 'auto' }}>
                 <img
-                  src={`${PROFILE_REPO_RAW}/contrib-heatmap.svg?t=${new Date().toDateString()}`}
+                  src={`${PROFILE_REPO_RAW}/contrib-heatmap.svg?date=${TODAY}`}
                   alt="Contribution heatmap"
                   style={{ width: '100%', maxWidth: '860px', display: 'block', margin: '0 auto' }}
                 />
