@@ -1,14 +1,33 @@
 import React, { useState } from 'react';
 import GithubCalendar from './ui/retro-space-shooter-git-hub-calendar';
 
-// Using jsDelivr CDN — properly serves SVG SMIL animations (raw GitHub strips them)
-// Heatmap rebuilt daily by GitHub Actions in avanishkasar/avanishkasar repo
-const PROFILE_REPO_RAW = 'https://cdn.jsdelivr.net/gh/avanishkasar/avanishkasar@main';
-// Daily cache-bust key so portfolio always shows the freshest heatmap
-const TODAY = new Date().toISOString().split('T')[0];
+// SVGs are bundled locally in /assets/ — served by Vite, no CORS issues
+// <object> tags are used instead of <img> so SMIL animations play correctly
+// contrib-heatmap.svg can be updated periodically by running the python script
 
 export default function GithubSection() {
   const [tab, setTab] = useState<'calendar' | 'terminal'>('terminal');
+
+  const tabBtn = (id: 'terminal' | 'calendar', label: string) => (
+    <button
+      onClick={() => setTab(id)}
+      style={{
+        padding: '6px 18px',
+        borderRadius: '100px',
+        fontSize: '0.72rem',
+        fontFamily: 'monospace',
+        letterSpacing: '0.08em',
+        textTransform: 'uppercase' as const,
+        border: tab === id ? '1px solid #00f0ff' : '1px solid rgba(255,255,255,0.12)',
+        background: tab === id ? 'rgba(0,240,255,0.08)' : 'transparent',
+        color: tab === id ? '#00f0ff' : 'rgba(255,255,255,0.4)',
+        cursor: 'pointer',
+        transition: 'all 0.2s ease',
+      }}
+    >
+      {label}
+    </button>
+  );
 
   return (
     <section className="py-16 md:py-32 w-full bg-black relative">
@@ -20,179 +39,144 @@ export default function GithubSection() {
 
         {/* Tab switcher */}
         <div className="flex gap-2 mb-8 reveal-text">
-          <button
-            onClick={() => setTab('terminal')}
-            style={{
-              padding: '6px 18px',
-              borderRadius: '100px',
-              fontSize: '0.72rem',
-              fontFamily: 'monospace',
-              letterSpacing: '0.08em',
-              textTransform: 'uppercase',
-              border: tab === 'terminal'
-                ? '1px solid #00f0ff'
-                : '1px solid rgba(255,255,255,0.12)',
-              background: tab === 'terminal'
-                ? 'rgba(0,240,255,0.08)'
-                : 'transparent',
-              color: tab === 'terminal' ? '#00f0ff' : 'rgba(255,255,255,0.4)',
-              cursor: 'pointer',
-              transition: 'all 0.2s ease',
-            }}
-          >
-            $ terminal view
-          </button>
-          <button
-            onClick={() => setTab('calendar')}
-            style={{
-              padding: '6px 18px',
-              borderRadius: '100px',
-              fontSize: '0.72rem',
-              fontFamily: 'monospace',
-              letterSpacing: '0.08em',
-              textTransform: 'uppercase',
-              border: tab === 'calendar'
-                ? '1px solid #00f0ff'
-                : '1px solid rgba(255,255,255,0.12)',
-              background: tab === 'calendar'
-                ? 'rgba(0,240,255,0.08)'
-                : 'transparent',
-              color: tab === 'calendar' ? '#00f0ff' : 'rgba(255,255,255,0.4)',
-              cursor: 'pointer',
-              transition: 'all 0.2s ease',
-            }}
-          >
-            $ space shooter
-          </button>
+          {tabBtn('terminal', '$ terminal view')}
+          {tabBtn('calendar', '$ space shooter')}
         </div>
 
-        {/* Terminal view — ASCII + info card + heatmap from profile repo */}
+        {/* ── Terminal view ── */}
         {tab === 'terminal' && (
           <div
             className="reveal-text w-full rounded-2xl overflow-hidden"
             style={{
               background: '#0a0a0a',
-              border: '1px solid rgba(255,255,255,0.06)',
+              border: '1px solid rgba(255,255,255,0.07)',
               boxShadow: 'inset 0 0 80px rgba(0,240,255,0.02)',
             }}
           >
-            {/* Terminal chrome bar */}
-            <div
-              style={{
-                padding: '10px 16px',
-                borderBottom: '1px solid rgba(255,255,255,0.06)',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-              }}
-            >
-              <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#ff5f56' }} />
-              <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#ffbd2e' }} />
-              <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#27c93f' }} />
-              <span style={{
-                marginLeft: 8,
-                fontFamily: 'monospace',
-                fontSize: '0.72rem',
-                color: 'rgba(255,255,255,0.3)',
-              }}>
+            {/* macOS-style chrome bar */}
+            <div style={{
+              padding: '10px 16px',
+              borderBottom: '1px solid rgba(255,255,255,0.06)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+            }}>
+              <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#ff5f56', display: 'inline-block' }} />
+              <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#ffbd2e', display: 'inline-block' }} />
+              <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#27c93f', display: 'inline-block' }} />
+              <span style={{ marginLeft: 8, fontFamily: 'monospace', fontSize: '0.72rem', color: 'rgba(255,255,255,0.3)' }}>
                 avanish@github — profile
               </span>
             </div>
 
             <div style={{ padding: '24px 20px', overflowX: 'auto' }}>
+
               {/* whoami */}
-              <p style={{
-                fontFamily: 'monospace',
-                fontSize: '0.78rem',
-                color: 'rgba(255,255,255,0.35)',
-                marginBottom: '16px',
-              }}>
+              <p style={{ fontFamily: 'monospace', fontSize: '0.78rem', color: 'rgba(255,255,255,0.35)', marginBottom: '20px' }}>
                 <span style={{ color: '#00f0ff' }}>avanish@github</span>
                 <span style={{ color: 'rgba(255,255,255,0.2)' }}> ~ $ </span>
                 whoami
               </p>
 
-              {/* ASCII wordmark + info card side by side */}
+              {/* ASCII portrait + info card */}
               <div style={{
                 display: 'flex',
-                gap: '16px',
+                gap: '24px',
                 flexWrap: 'wrap',
                 justifyContent: 'center',
-                marginBottom: '28px',
+                marginBottom: '32px',
+                alignItems: 'flex-start',
               }}>
-                <img
-                  src={`${PROFILE_REPO_RAW}/avi-ascii.svg`}
-                  alt="Avanish ASCII art"
-                  style={{ width: '340px', maxWidth: '100%', display: 'block' }}
-                />
-                <img
-                  src={`${PROFILE_REPO_RAW}/info-card.svg`}
-                  alt="Avanish info card"
-                  style={{ width: '460px', maxWidth: '100%', display: 'block' }}
-                />
+                {/* ASCII portrait — <object> plays SMIL animations, <img> does not */}
+                <object
+                  data="/assets/avi-ascii.svg"
+                  type="image/svg+xml"
+                  style={{
+                    width: '340px',
+                    maxWidth: '100%',
+                    height: '400px',
+                    display: 'block',
+                    borderRadius: '8px',
+                    overflow: 'hidden',
+                    flexShrink: 0,
+                  }}
+                  aria-label="Avanish Kasar ASCII portrait"
+                >
+                  {/* fallback if object fails */}
+                  <img src="/assets/avatar.png" alt="Avanish Kasar" style={{ width: '100%', borderRadius: 8 }} />
+                </object>
+
+                {/* Info card */}
+                <object
+                  data="/assets/info-card.svg"
+                  type="image/svg+xml"
+                  style={{
+                    width: '440px',
+                    maxWidth: '100%',
+                    height: '400px',
+                    display: 'block',
+                    borderRadius: '8px',
+                    overflow: 'hidden',
+                    flexShrink: 0,
+                  }}
+                  aria-label="Avanish Kasar info card"
+                >
+                  <img src="/assets/avatar.png" alt="Info card" style={{ width: '100%', borderRadius: 8 }} />
+                </object>
               </div>
 
               {/* contributions.sh */}
-              <p style={{
-                fontFamily: 'monospace',
-                fontSize: '0.78rem',
-                color: 'rgba(255,255,255,0.35)',
-                marginBottom: '16px',
-              }}>
+              <p style={{ fontFamily: 'monospace', fontSize: '0.78rem', color: 'rgba(255,255,255,0.35)', marginBottom: '16px' }}>
                 <span style={{ color: '#00f0ff' }}>avanish@github</span>
                 <span style={{ color: 'rgba(255,255,255,0.2)' }}> ~ $ </span>
                 ./contributions.sh
               </p>
 
-              <div style={{ overflowX: 'auto' }}>
-                <img
-                  src={`${PROFILE_REPO_RAW}/contrib-heatmap.svg?date=${TODAY}`}
-                  alt="Contribution heatmap"
-                  style={{ width: '100%', maxWidth: '860px', display: 'block', margin: '0 auto' }}
-                />
+              <div style={{ overflowX: 'auto', marginBottom: '24px' }}>
+                <object
+                  data="/assets/contrib-heatmap.svg"
+                  type="image/svg+xml"
+                  style={{ width: '100%', maxWidth: '860px', height: '160px', display: 'block', margin: '0 auto' }}
+                  aria-label="GitHub contribution heatmap"
+                >
+                  <span style={{ color: 'rgba(255,255,255,0.3)', fontFamily: 'monospace', fontSize: '0.75rem' }}>
+                    Heatmap loading...
+                  </span>
+                </object>
               </div>
 
               {/* links.sh */}
-              <p style={{
-                fontFamily: 'monospace',
-                fontSize: '0.78rem',
-                color: 'rgba(255,255,255,0.35)',
-                marginTop: '24px',
-                marginBottom: '10px',
-              }}>
+              <p style={{ fontFamily: 'monospace', fontSize: '0.78rem', color: 'rgba(255,255,255,0.35)', marginBottom: '12px' }}>
                 <span style={{ color: '#00f0ff' }}>avanish@github</span>
                 <span style={{ color: 'rgba(255,255,255,0.2)' }}> ~ $ </span>
                 ./links.sh
               </p>
 
-              <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
                 {[
                   { label: 'GitHub', url: 'https://github.com/avanishkasar' },
                   { label: 'LinkedIn', url: 'https://www.linkedin.com/in/avanishkasar' },
                   { label: 'Portfolio', url: 'https://avanish.tech' },
                   { label: 'Linktree', url: 'https://linktr.ee/Avanish_Kasar' },
+                  { label: 'Email', url: 'mailto:avanishkasar57@gmail.com' },
                 ].map(link => (
                   <a
                     key={link.label}
                     href={link.url}
-                    target="_blank"
+                    target={link.url.startsWith('mailto') ? undefined : '_blank'}
                     rel="noopener noreferrer"
                     style={{
                       fontFamily: 'monospace',
-                      fontSize: '0.75rem',
+                      fontSize: '0.72rem',
                       color: '#00f0ff',
                       textDecoration: 'none',
                       padding: '4px 12px',
                       border: '1px solid rgba(0,240,255,0.2)',
                       borderRadius: '4px',
-                      transition: 'all 0.2s',
+                      transition: 'background 0.2s',
                     }}
-                    onMouseEnter={e => {
-                      (e.currentTarget as HTMLElement).style.background = 'rgba(0,240,255,0.1)';
-                    }}
-                    onMouseLeave={e => {
-                      (e.currentTarget as HTMLElement).style.background = 'transparent';
-                    }}
+                    onMouseEnter={e => ((e.currentTarget as HTMLElement).style.background = 'rgba(0,240,255,0.1)')}
+                    onMouseLeave={e => ((e.currentTarget as HTMLElement).style.background = 'transparent')}
                   >
                     [{link.label}]
                   </a>
@@ -202,7 +186,7 @@ export default function GithubSection() {
           </div>
         )}
 
-        {/* Space shooter calendar */}
+        {/* ── Space shooter calendar ── */}
         {tab === 'calendar' && (
           <div className="w-full flex justify-center reveal-text border border-white/5 bg-[#0a0a0a] rounded-xl py-12 overflow-hidden shadow-[inset_0_0_100px_rgba(0,240,255,0.02)]">
             <GithubCalendar
