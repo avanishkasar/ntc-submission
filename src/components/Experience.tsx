@@ -13,6 +13,24 @@ export default function Experience() {
           <div className="experience-item reveal-text">
             <div className="exp-header">
               <div className="exp-role">
+                <h3>Data Science & Research Lead</h3>
+                <span className="exp-company">IEEE APSIT Student Branch · Founding Member</span>
+              </div>
+              <span className="exp-date">Jul 2026 to Present</span>
+            </div>
+            <p className="exp-desc">Played a key role in reviving the IEEE Student Branch at APSIT from the ground up. Lead data science sessions and research initiatives, connect student researchers with industry folks, and help people find paths to publication. It's part community building, part actual research work.</p>
+            <div className="exp-tags">
+              <span>Data Science</span>
+              <span>Research</span>
+              <span>Mentoring</span>
+              <span>IEEE</span>
+              <span>EDA</span>
+            </div>
+          </div>
+
+          <div className="experience-item reveal-text">
+            <div className="exp-header">
+              <div className="exp-role">
                 <h3>Lead Organizer</h3>
                 <span className="exp-company">Google Developer Groups On Campus APSIT</span>
               </div>

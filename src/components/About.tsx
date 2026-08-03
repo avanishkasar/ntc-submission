@@ -41,20 +41,7 @@ export default function About() {
           </div>
         </div>
 
-        <div className="about-image-section reveal-text">
-          <div className="about-image-wrapper">
-            <img
-              src="/assets/avatar.png"
-              alt="Avanish Kasar"
-              className="about-img"
-              loading="lazy"
-            />
-            <div className="about-image-caption">
-              <span>AVANISH KASAR</span>
-              <span>MUMBAI, IN</span>
-            </div>
-          </div>
-        </div>
+
       </div>
     </section>
   );
