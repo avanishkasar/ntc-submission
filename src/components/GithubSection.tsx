@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
 import GithubCalendar from './ui/retro-space-shooter-git-hub-calendar';
 
-// SVGs are bundled locally in /assets/ — served by Vite, no CORS issues
-// <object> tags are used instead of <img> so SMIL animations play correctly
-// contrib-heatmap.svg can be updated periodically by running the python script
-
 export default function GithubSection() {
-  const [tab, setTab] = useState<'calendar' | 'terminal'>('terminal');
+  const [tab, setTab] = useState<'terminal' | 'calendar'>('terminal');
 
   const tabBtn = (id: 'terminal' | 'calendar', label: string) => (
     <button
@@ -43,8 +39,8 @@ export default function GithubSection() {
           {tabBtn('calendar', '$ space shooter')}
         </div>
 
-        {/* ── Terminal view ── */}
-        {tab === 'terminal' && (
+        {/* ── Terminal view — always mounted, toggled via display ── */}
+        <div style={{ display: tab === 'terminal' ? 'block' : 'none' }}>
           <div
             className="reveal-text w-full rounded-2xl overflow-hidden"
             style={{
@@ -70,15 +66,13 @@ export default function GithubSection() {
             </div>
 
             <div style={{ padding: '24px 20px', overflowX: 'auto' }}>
-
-              {/* whoami */}
               <p style={{ fontFamily: 'monospace', fontSize: '0.78rem', color: 'rgba(255,255,255,0.35)', marginBottom: '20px' }}>
                 <span style={{ color: '#00f0ff' }}>avanish@github</span>
                 <span style={{ color: 'rgba(255,255,255,0.2)' }}> ~ $ </span>
                 whoami
               </p>
 
-              {/* ASCII portrait + info card */}
+              {/* ASCII portrait + info card — <object> plays SMIL animations */}
               <div style={{
                 display: 'flex',
                 gap: '24px',
@@ -87,45 +81,24 @@ export default function GithubSection() {
                 marginBottom: '32px',
                 alignItems: 'flex-start',
               }}>
-                {/* ASCII portrait — <object> plays SMIL animations, <img> does not */}
                 <object
                   data="/assets/avi-ascii.svg"
                   type="image/svg+xml"
-                  style={{
-                    width: '340px',
-                    maxWidth: '100%',
-                    height: '400px',
-                    display: 'block',
-                    borderRadius: '8px',
-                    overflow: 'hidden',
-                    flexShrink: 0,
-                  }}
+                  style={{ width: '340px', maxWidth: '100%', height: '400px', display: 'block', borderRadius: '8px', flexShrink: 0 }}
                   aria-label="Avanish Kasar ASCII portrait"
                 >
-                  {/* fallback if object fails */}
                   <img src="/assets/avatar.png" alt="Avanish Kasar" style={{ width: '100%', borderRadius: 8 }} />
                 </object>
-
-                {/* Info card */}
                 <object
                   data="/assets/info-card.svg"
                   type="image/svg+xml"
-                  style={{
-                    width: '440px',
-                    maxWidth: '100%',
-                    height: '400px',
-                    display: 'block',
-                    borderRadius: '8px',
-                    overflow: 'hidden',
-                    flexShrink: 0,
-                  }}
-                  aria-label="Avanish Kasar info card"
+                  style={{ width: '440px', maxWidth: '100%', height: '400px', display: 'block', borderRadius: '8px', flexShrink: 0 }}
+                  aria-label="Avanish info card"
                 >
                   <img src="/assets/avatar.png" alt="Info card" style={{ width: '100%', borderRadius: 8 }} />
                 </object>
               </div>
 
-              {/* contributions.sh */}
               <p style={{ fontFamily: 'monospace', fontSize: '0.78rem', color: 'rgba(255,255,255,0.35)', marginBottom: '16px' }}>
                 <span style={{ color: '#00f0ff' }}>avanish@github</span>
                 <span style={{ color: 'rgba(255,255,255,0.2)' }}> ~ $ </span>
@@ -139,13 +112,10 @@ export default function GithubSection() {
                   style={{ width: '100%', maxWidth: '860px', height: '160px', display: 'block', margin: '0 auto' }}
                   aria-label="GitHub contribution heatmap"
                 >
-                  <span style={{ color: 'rgba(255,255,255,0.3)', fontFamily: 'monospace', fontSize: '0.75rem' }}>
-                    Heatmap loading...
-                  </span>
+                  <span style={{ color: 'rgba(255,255,255,0.3)', fontFamily: 'monospace', fontSize: '0.75rem' }}>Loading...</span>
                 </object>
               </div>
 
-              {/* links.sh */}
               <p style={{ fontFamily: 'monospace', fontSize: '0.78rem', color: 'rgba(255,255,255,0.35)', marginBottom: '12px' }}>
                 <span style={{ color: '#00f0ff' }}>avanish@github</span>
                 <span style={{ color: 'rgba(255,255,255,0.2)' }}> ~ $ </span>
@@ -184,18 +154,18 @@ export default function GithubSection() {
               </div>
             </div>
           </div>
-        )}
+        </div>
 
-        {/* ── Space shooter calendar ── */}
-        {tab === 'calendar' && (
-          <div className="w-full flex justify-center reveal-text border border-white/5 bg-[#0a0a0a] rounded-xl py-12 overflow-hidden shadow-[inset_0_0_100px_rgba(0,240,255,0.02)]">
-            <GithubCalendar
-              username="avanishkasar"
-              cellSize={16}
-              cellGap={4}
-            />
-          </div>
-        )}
+        {/* ── Space shooter — always mounted so canvas game loop isn't killed ── */}
+        <div style={{ display: tab === 'calendar' ? 'flex' : 'none' }}
+          className="w-full justify-center reveal-text border border-white/5 bg-[#0a0a0a] rounded-xl py-12 overflow-hidden shadow-[inset_0_0_100px_rgba(0,240,255,0.02)]"
+        >
+          <GithubCalendar
+            username="avanishkasar"
+            cellSize={16}
+            cellGap={4}
+          />
+        </div>
       </div>
     </section>
   );
