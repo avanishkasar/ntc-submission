@@ -19,10 +19,11 @@ export default function About() {
           </div>
           <div className="about-right">
             <div className="about-bio reveal-text">
-              <p>I study CS at <strong>APSIT, Mumbai</strong> and lead <strong>GDG On Campus APSIT</strong> where I run hackathons, workshops and study jams for the campus community.</p>
-              <p>Right now I'm deep into AI and developer tooling. I built <strong>Playlistify AI</strong> (mood-based Spotify playlists in any language), <strong>SmartRouter</strong> (picks the right AI model for any task), and keep shipping more. I learn by building, not by waiting.</p>
-              <p>Outside code: you'll find me at hackathons, contributing to open source, or on Google Cloud doing labs at 2am.</p>
+              <p>I study CS at <strong>APSIT, Mumbai</strong> and lead <strong>GDG On Campus APSIT</strong> where I run hackathons, workshops and study jams. Also a founding member of <strong>IEEE APSIT</strong>, leading data science and research initiatives.</p>
+              <p>Right now I'm deep into AI and developer tooling. I built <strong>Playlistify AI</strong> (mood-based Spotify playlists), <strong>SmartRouter</strong> (picks the right AI model for any task), and keep shipping more. I learn by building, not by waiting.</p>
+              <p>Google Certified ML Engineer. Outside code: hackathons, open source, and too many browser tabs about LLMs and RAG systems.</p>
             </div>
+
             
             <div className="about-stats reveal-text">
               <div className="stat">
