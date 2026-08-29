@@ -1,0 +1,10 @@
+# Practice — commit 4
+# Topic: studied enumerate() — loop with index and value together
+# Time: 11-28-11 UTC
+
+# two sum brute force
+nums, target = [2,7,11,15], 9
+for i in range(len(nums)):
+    for j in range(i+1, len(nums)):
+        if nums[i]+nums[j]==target:
+            print(i,j)
