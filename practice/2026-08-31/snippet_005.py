@@ -1,6 +1,7 @@
 # Practice — commit 5
-# Topic: studied time complexity — O(n) vs O(log n) vs O(n²)
-# Time: 09-51-58 UTC
+# Topic: reviewed if/else conditions and edge cases
+# Time: 09-53-11 UTC
 
-word = 'racecar'
-print(word == word[::-1])  # True — palindrome
+matrix = [[1,2],[3,4]]
+for row in matrix:
+    print(row)
