@@ -1,12 +1,31 @@
-### Hi, I'm Avanish 
-I'm a CS undergrad and AI/ML builder focused on shipping real world intelligent systems from LLM powered applications and RAG pipelines to agentic workflows and applied ML research. I don't just learn technology; I build with it and help others do the same.
-Google Cloud Certified ML Engineer · Google Student Ambassador 2026 · GDG On Campus Organizer @ APSIT · Open Source Contributor (GSSoC 2025)
+# NTC Submissions
 
-### GitHub Stats
-<p align="center">
-  <img height="180em" src="http://github-profile-summary-cards.vercel.app/api/cards/stats?username=avanishkasar&theme=2077" />
-  <img height="180em" src="http://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=avanishkasar&theme=2077" />
-</p>
-<p align="center">
-  <img height="180em" src="http://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=avanishkasar&theme=2077" />
-</p>
+LeetCode and DSA practice solutions organized by topic.
+
+## Structure
+
+```
+solutions/
+├── arrays/          # Two pointers, sliding window, prefix sum
+├── strings/         # Substring problems, palindromes
+├── hashing/         # Hash maps, frequency counting
+├── linked_list/     # Reversal, cycle detection, merge
+├── stacks/          # Monotonic stacks, bracket matching
+├── binary_search/   # Rotated arrays, search space
+├── trees/           # Traversals, DFS, BFS
+├── dp/              # Memoization, tabulation, optimization
+├── greedy/          # Interval scheduling, stock problems
+├── sorting/         # Merge sort, quicksort, comparators
+├── graphs/          # BFS, DFS, connected components
+├── intervals/       # Merge, insert, overlapping
+├── heap/            # Priority queues, top-K
+└── backtracking/    # Subsets, permutations, combinations
+```
+
+## Running
+
+Each file is self-contained with tests:
+
+```bash
+python solutions/arrays/kadane_max_subarray.py
+```
